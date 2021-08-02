@@ -9,6 +9,14 @@
         <button id="rulesButton" onClick="displayRules()">Rules</button>
         <h3 id="attempts" count="0">Attempts: 0</h3>
         <h3 id="cardsCollected" count=0>Cards collected: 0/8</h3>
+        <div id="modal">
+            <div class="modal-header">
+                <div class="title">Example modal</div>
+                <button class="close-button" onclick="closeCongratsModal()">&times;</button>
+            </div>
+            <div class="modal-body">Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique, commodi provident. Quisquam ea rerum reiciendis fugiat corporis quia, quibusdam nisi consequatur quam quo, pariatur nulla magnam praesentium? Deserunt, eos minus?</div>
+        </div>
+        <div id="overlay"></div>
         <div id="main">
         
             <script>
@@ -22,6 +30,7 @@
                 let collectedCards = [];
 
                 function createCards() {
+                    console.log(cards.length);
                     for (let i = 0; i < 8; i++) {
                         let card = document.createElement("button");
                         card.setAttribute("class", "card");
@@ -35,6 +44,13 @@
                         else if (i < 8) {card.teamName = "76ers";}
                         cards.push(card);
                     }
+                }
+
+                function shuffleCards() {
+                    for (card of cards) {
+                        card.value = Math.random();
+                    }
+                    cards.sort(function(a,b) {return a.value - b.value});
                 }
 
                 function flipCard() {
@@ -88,6 +104,9 @@
                             cardsCollected.innerHTML = "Cards collected: " + count + "/8";
                             cardsCollected.setAttribute("count", count);
                             currentAttemptCards = [];
+                            if (collectedCards.length == 8) {
+                                openCongratsModal();
+                            }
                         }
                         else {
                             console.log("No match");
@@ -105,7 +124,25 @@
                             attemptNumber++;
                             attempts.innerHTML = "Attempts: " + attemptNumber;
                             attempts.setAttribute("count", attemptNumber);
-                    }, 3000)
+                    }, 1500)
+                }
+
+                function openCongratsModal() {
+                    for (card of cards) {
+                        card.style.visibility = "visible";
+                    }
+                    let modal = document.getElementById("modal");
+                    let overlay = document.getElementById("overlay");
+                    modal.classList.add("active");
+                    overlay.classList.add("active");
+                }
+
+                function closeCongratsModal() {
+                    let modal = document.getElementById("modal");
+                    let overlay = document.getElementById("overlay");
+                    modal.classList.remove("active");
+                    overlay.classList.remove("active");
+                    resetGame();
                 }
 
                 function displayRules() {
@@ -114,23 +151,30 @@
                     newWindow.focus();
                 }
 
-                function shuffleCards() {
-                    for (card of cards) {
-                        card.value = Math.random();
-                        console.log(card.value);
-                    }
-                    cards.sort(function(a,b) {return a.value - b.value});
-                }
-
                 function startGame() {
+                    createCards();
+                    shuffleCards();
                     for (card of cards) {
                         document.getElementById("main").appendChild(card);
                     }
                 }
 
-                window.onload = createCards();
-                shuffleCards();
-                startGame();
+                function resetGame() {
+                    for (i = cards.length - 1; i >= 0; i--) {
+                        let removed = cards.pop();
+                        removed.remove();
+                        collectedCards.pop();
+                    }
+                    let attempts = document.getElementById("attempts");
+                    attempts.setAttribute("count", 0);
+                    attempts.innerHTML = "Attempts: " + attempts.getAttribute("count");
+                    let cardsCollected = document.getElementById("cardsCollected");
+                    cardsCollected.setAttribute("count", 0);
+                    cardsCollected.innerHTML = "Cards collected: " + cardsCollected.getAttribute("count") + "/8";
+                    startGame();
+                }
+
+                window.onload = startGame();
             </script>
         </div>
 
