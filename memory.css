@@ -27,7 +27,40 @@
     height: 150px;
 }
 
-#modal {
+#start-modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid black;
+    border-radius: 10px;
+    z-index: 10;
+    background-color: white;
+    width: 500px;
+    max-width: 80%;
+    text-align: center;
+}
+
+#start-modal.active {
+    display: block;
+}
+
+.card-amount-button {
+    display: block;
+    padding: 10px 15px;
+    margin: 0px auto;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 300px;
+    max-width: 80%;
+    background-color: #6a5acd; 
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#congrats-modal {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -42,7 +75,7 @@
     text-align: center;
 }
 
-#modal.active {
+#congrats-modal.active {
     display: block;
 }
 
@@ -55,7 +88,12 @@
 }
 
 .modal-header .title {
+    font-size: 20px;
     font-weight: bold;
+}
+
+.modal-body {
+    margin-top: 10px;
 }
 
 .close-button {
@@ -64,7 +102,8 @@
     justify-content: center;
     padding: 5px 5px;
     margin: 0 auto;
-    margin-bottom: 5px;
+    margin-top: 40px;
+    margin-bottom: 10px;
     width: 200px;
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     cursor: pointer;
@@ -72,10 +111,6 @@
     font-size: 16px;
     background-color: rgb(40,40,40);
     color: white;
-}
-
-.modal-body {
-    padding: 10px 15px;
 }
 
 #overlay {

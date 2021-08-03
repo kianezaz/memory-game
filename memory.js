@@ -2,13 +2,23 @@
  Instead of appending img to innerHTML for each distinct img, can make an array of team names
  and pull the names out of array when appending using `${teamName}_Logo.png`
 */
+
+let cardAmount;
 let cards = [];
 let currentAttemptCards = [];
 let collectedCards = [];
+let startTime;
+let endTime;
+
+function numberOfCards(number) {
+    cardAmount = number;
+    let startModal = document.getElementById("start-modal");
+    startModal.classList.remove("active");
+    startGame();
+}
 
 function createCards() {
-    console.log(cards.length);
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < cardAmount; i++) {
         let card = document.createElement("button");
         card.setAttribute("class", "card");
         card.addEventListener("click", flipCard);
@@ -104,20 +114,33 @@ function userAttempt() {
     }, 1500)
 }
 
+function stopTime() {
+    endTime = new Date();
+    let timeElapsed = endTime - startTime;
+    let totalSeconds = timeElapsed / 1000;
+    let minutes = Math.floor(totalSeconds / 60);
+    let seconds = Math.round(totalSeconds - (minutes * 60));
+    return {minutes, seconds};
+}
+
 function openCongratsModal() {
+    timeElapsed = stopTime();
     for (card of cards) {
         card.style.visibility = "visible";
     }
-    let modal = document.getElementById("modal");
+    let congratsModal = document.getElementById("congrats-modal");
     let overlay = document.getElementById("overlay");
-    modal.classList.add("active");
+    let modalBody = document.getElementsByClassName("modal-body")[0];
+    let attemptCount = document.getElementById("attempts").getAttribute("count");
+    modalBody.innerHTML = "You finished in " + attemptCount + " attempts <br><br> in " + timeElapsed.minutes + " minutes " + timeElapsed.seconds + " seconds";
+    congratsModal.classList.add("active");
     overlay.classList.add("active");
 }
 
 function closeCongratsModal() {
-    let modal = document.getElementById("modal");
+    let congratsModal = document.getElementById("congrats-modal");
     let overlay = document.getElementById("overlay");
-    modal.classList.remove("active");
+    congratsModal.classList.remove("active");
     overlay.classList.remove("active");
     resetGame();
 }
@@ -134,6 +157,7 @@ function startGame() {
     for (card of cards) {
         document.getElementById("main").appendChild(card);
     }
+    startTime = new Date();
 }
 
 function resetGame() {
@@ -148,7 +172,8 @@ function resetGame() {
     let cardsCollected = document.getElementById("cardsCollected");
     cardsCollected.setAttribute("count", 0);
     cardsCollected.innerHTML = "Cards collected: " + cardsCollected.getAttribute("count") + "/8";
-    startGame();
+    let startModal = document.getElementById("start-modal");
+    startModal.classList.add("active");
 }
 
-window.onload = startGame();
+//window.onload = startGame();
