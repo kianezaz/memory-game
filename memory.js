@@ -3,10 +3,11 @@
  and pull the names out of array when appending using `${teamName}_Logo.png`
 */
 
+// Add images for each team
 let teams = ["Celtics", "Nets", "Knicks", "76ers", "Raptors", "Bulls", "Cavaliers", "Pistons", 
             "Pacers", "Bucks", "Hawks", "Hornets", "Heat", "Magic", "Wizards", "Nuggets", 
             "Timberwolves", "Thunder", "Blazers", "Jazz", "Warriors", "Clippers", "Lakers", 
-            "Suns", "Kings", "Mavericks", "Hornets", "Grizzlies", "Pelicans", "Spurs"];
+            "Suns", "Kings", "Mavericks", "Rockets", "Grizzlies", "Pelicans", "Spurs"];
 let cardAmount;
 let cards = [];
 let currentAttemptCards = [];
