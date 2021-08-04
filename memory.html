@@ -6,19 +6,28 @@
     </head>
 
     <body>
-        <button id="rulesButton" onClick="displayRules()">Rules</button>
-        <h3 id="attempts" count="0">Attempts: 0</h3>
-        <h3 id="cardsCollected" count=0>Cards collected: 0/8</h3>
+        <div id="rules-modal">
+            <div class="modal-header">
+                <div class="title">Rules</div>
+            </div>
+            <div class="modal-body"></div>
+            <button class="close-button" onclick="closeRulesModal()">Close</button>
+        </div>
+
+        <!--<button id="rulesButton" onClick="openRulesModal()">Rules</button>-->
+        <h3 id="attempts" count="0"></h3>
+        <h3 id="cardsCollected" count=0></h3>
 
         <div class="active" id="start-modal">
             <div class="modal-header">
                 <div class="title">Select number of cards</div>
             </div>
             <div>
-                <button class="card-amount-button" onclick="numberOfCards(8)">8 cards</button>
-                <button class="card-amount-button" onclick="numberOfCards(16)">16 cards</button>
-                <button class="card-amount-button" onclick="numberOfCards(24)">24 cards</button>
-                <button class="card-amount-button" onclick="numberOfCards(30)">30 cards</button>
+                <button class="start-modal-button" onclick="numberOfCards(8)">8 cards</button>
+                <button class="start-modal-button" onclick="numberOfCards(16)">16 cards</button>
+                <button class="start-modal-button" onclick="numberOfCards(24)">24 cards</button>
+                <button class="start-modal-button" onclick="numberOfCards(30)">30 cards</button>
+                <button class="start-modal-button" id="rules-button" onclick="openRulesModal()">Rules</button>
             </div>
         </div>
 
@@ -27,7 +36,7 @@
                 <div class="title">Congratulations</div>
                 <!--<button class="close-button" onclick="closeCongratsModal()">&times;</button> -->
             </div>
-            <div class="modal-body"></div>
+            <div class="modal-body" id="congrats-modal-body"></div>
             <button class="close-button" onclick="closeCongratsModal()">Play again</button>
         </div>
 

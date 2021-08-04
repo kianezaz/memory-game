@@ -21,8 +21,6 @@ function numberOfCards(number) {
     startModal.classList.remove("active");
     let overlay = document.getElementById("overlay");
     overlay.classList.remove("active");
-    let cardsCollected = document.getElementById("cardsCollected");
-    cardsCollected.innerHTML = "Cards collected: " + cardsCollected.getAttribute("count") + "/" + cardAmount;
     startGame();
 }
 
@@ -30,11 +28,6 @@ function createCards() {
     for (let i = 0; i < cardAmount; i++) {
         let card = document.createElement("button");
         card.classList.add("card", `_${cardAmount}`);
-        console.log(card.classList);
-       // card.setAttribute("class", "card");
-        //card.setAttribute("class", `_${cardAmount}`);
-        console.log(card.classList);
-        //card.set
         card.addEventListener("click", flipCard);
         card.hasEvent = true;
         let j;
@@ -144,28 +137,44 @@ function openCongratsModal() {
     }
     let congratsModal = document.getElementById("congrats-modal");
     let overlay = document.getElementById("overlay");
-    let modalBody = document.getElementsByClassName("modal-body")[0];
+    let modalBody = document.getElementById("congrats-modal-body");
     let attemptCount = document.getElementById("attempts").getAttribute("count");
-    modalBody.innerHTML = "You finished in " + attemptCount + " attempts <br><br> in " + timeElapsed.minutes + " minutes " + timeElapsed.seconds + " seconds";
+    modalBody.innerHTML = "You finished in " + attemptCount + " attempts <br><br> in " + timeElapsed.minutes + 
+                            " minutes " + timeElapsed.seconds + " seconds";
     congratsModal.classList.add("active");
     overlay.classList.add("active");
 }
 
 function closeCongratsModal() {
     let congratsModal = document.getElementById("congrats-modal");
-    let overlay = document.getElementById("overlay");
     congratsModal.classList.remove("active");
-    overlay.classList.remove("active");
+    let attempts = document.getElementById("attempts");
+    attempts.innerHTML = "";
+    let cardsCollected = document.getElementById("cardsCollected");
+    cardsCollected.innerHTML = "";
     resetGame();
 }
 
-function displayRules() {
-    let newWindow = window.open("","Memory Game Rules", "width = 500, height = 500");
-    newWindow.document.write("<h3>The objective of the game is to match two cards with each other in the least number of attempts as possible.</h3><li></li>");
-    newWindow.focus();
+function closeRulesModal() {
+    let rulesModal = document.getElementById("rules-modal");
+    let startModal = document.getElementById("start-modal");
+    rulesModal.classList.remove("active");
+    startModal.classList.add("active");
+}
+
+
+function openRulesModal() {
+    let startModal = document.getElementById("start-modal");
+    startModal.classList.remove("active");
+    let rulesModal = document.getElementById("rules-modal");
+    rulesModal.classList.add("active");
 }
 
 function startGame() {
+    let attempts = document.getElementById("attempts");
+    attempts.innerHTML = "Attempts: 0";
+    let cardsCollected = document.getElementById("cardsCollected");
+    cardsCollected.innerHTML = "Cards collected: 0/" + cardAmount;
     shuffleArray(teams);
     createCards();
     for (card of cards) {
@@ -182,7 +191,6 @@ function resetGame() {
     }
     let attempts = document.getElementById("attempts");
     attempts.setAttribute("count", 0);
-    attempts.innerHTML = "Attempts: " + attempts.getAttribute("count");
     let cardsCollected = document.getElementById("cardsCollected");
     cardsCollected.setAttribute("count", 0);
     let startModal = document.getElementById("start-modal");

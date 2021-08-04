@@ -3,8 +3,8 @@ body {
 }
 
 .card {
-    
-    border: 2px solid #222222;
+    background-color: #7FDBFF;
+    border: 2px solid #0074D9;
     padding: 5px;
     margin: 20px;
     text-align: center;
@@ -32,23 +32,28 @@ body {
     height: 125px;
 }
 
-#rulesButton {
-    cursor: pointer;
-    border: 2px;
-    border-color:crimson;
-    border-radius: 10px;
-    padding: 5px;
-    font-family: serif;
-    font-size: 16px;
-    color: #FFFFFF;
-    background-color: red;
-    text-align: center;
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-}
-
 .teamLogo {
     width: 80%;
     height: 80%;
+}
+
+#rules-modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid black;
+    border-radius: 10px;
+    z-index: 10;
+    background-color: white;
+    width: 500px;
+    max-width: 80%;
+    text-align: center;
+}
+
+#rules-modal.active {
+    display: block;
 }
 
 #start-modal {
@@ -70,12 +75,14 @@ body {
     display: block;
 }
 
-.card-amount-button {
+.start-modal-button {
+    cursor: pointer;
     display: block;
     padding: 10px 15px;
     margin: 0px auto;
     margin-top: 5px;
     margin-bottom: 5px;
+    border: 2px;
     border-radius: 5px;
     width: 300px;
     max-width: 80%;
@@ -84,6 +91,10 @@ body {
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-size: 16px;
     font-weight: bold;
+}
+
+#rules-button {
+    background-color: red;
 }
 
 #congrats-modal {
