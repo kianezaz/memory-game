@@ -3,6 +3,10 @@
  and pull the names out of array when appending using `${teamName}_Logo.png`
 */
 
+let teams = ["Celtics", "Nets", "Knicks", "76ers", "Raptors", "Bulls", "Cavaliers", "Pistons", 
+            "Pacers", "Bucks", "Hawks", "Hornets", "Heat", "Magic", "Wizards", "Nuggets", 
+            "Timberwolves", "Thunder", "Blazers", "Jazz", "Warriors", "Clippers", "Lakers", 
+            "Suns", "Kings", "Mavericks", "Hornets", "Grizzlies", "Pelicans", "Spurs"];
 let cardAmount;
 let cards = [];
 let currentAttemptCards = [];
@@ -18,26 +22,40 @@ function numberOfCards(number) {
 }
 
 function createCards() {
-    for (let i = 0; i < cardAmount; i++) {
-        let card = document.createElement("button");
-        card.setAttribute("class", "card");
-        card.addEventListener("click", flipCard);
-        card.hasEvent = true;
-        let label = document.createTextNode(`Card ${i + 1}`);
-        card.appendChild(label);
+    for (let i = 0; i < cardAmount/2; i++) {
+        let card1 = document.createElement("button");
+        let card2 = document.createElement("button");
+        card1.setAttribute("class", "card");
+        card1.addEventListener("click", flipCard);
+        card1.hasEvent = true;
+        //let label1 = document.createTextNode(`Card ${i + 1}`);
+        //card1.appendChild(label1);
+        card2.setAttribute("class", "card");
+        card2.addEventListener("click", flipCard);
+        card2.hasEvent = true;
+        //let label2 = document.createTextNode(`Card ${i + 2}`);
+        //card2.appendChild(label2);
+        /*
         if (i < 2) {card.teamName = "Warriors";}
         else if (i < 4) {card.teamName = "Lakers"}
         else if (i < 6) {card.teamName = "Bucks";}
         else if (i < 8) {card.teamName = "76ers";}
-        cards.push(card);
+        */
+        card1.teamName = teams[i];
+        card2.teamName = teams[i];
+        cards.push(card1);
+        cards.push(card2);
     }
+    shuffleArray(cards);
 }
 
-function shuffleCards() {
-    for (card of cards) {
-        card.value = Math.random();
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        let temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
     }
-    cards.sort(function(a,b) {return a.value - b.value});
 }
 
 function flipCard() {
@@ -47,7 +65,7 @@ function flipCard() {
         let img = document.createElement("img");
         img.src = `${this.teamName}_Logo.png`;
         img.setAttribute("class", "teamLogo");
-        img.setAttribute("id", `${this.value}`);
+        this.img = img;
         this.appendChild(img);
         currentAttemptCards.push(this);
         console.log(currentAttemptCards.length);
@@ -60,23 +78,22 @@ function flipCard() {
     else {
         this.flipped = false;
         this.style.fontSize = "larger";
-        let img = document.getElementById(`${this.value}`);
-        if (img != null) {
-            img.remove();
+        if (this.img != null) {
+            this.img.remove();
         }
     }
 }
 
 function userAttempt() {
-    let img1 = document.getElementById(`${currentAttemptCards[0].value}`);
-    let img2 = document.getElementById(`${currentAttemptCards[1].value}`);
+    let card1 = currentAttemptCards[0];
+    let card2 = currentAttemptCards[1];
     for (let card of cards) {
         if (card.hasEvent = true) {
             card.removeEventListener("click", flipCard);
         }
     }
     setTimeout(function() {
-        if (img1.src === img2.src) {
+        if (card1.img.src === card2.img.src) {
             collectedCards.push(currentAttemptCards[0]);
             collectedCards.push(currentAttemptCards[1]);
             currentAttemptCards[0].style.visibility = "hidden";
@@ -98,9 +115,9 @@ function userAttempt() {
         else {
             console.log("No match");
             currentAttemptCards[0].style.fontSize = "larger";
-            img1.remove();
+            card1.img.remove();
             currentAttemptCards[1].style.fontSize = "larger";
-            img2.remove();
+            card2.img.remove();
             currentAttemptCards = [];
             for (let card of cards) {
                 card.addEventListener("click", flipCard);
@@ -152,8 +169,8 @@ function displayRules() {
 }
 
 function startGame() {
+    shuffleArray(teams);
     createCards();
-    shuffleCards();
     for (card of cards) {
         document.getElementById("main").appendChild(card);
     }
