@@ -19,6 +19,8 @@ function numberOfCards(number) {
     cardAmount = number;
     let startModal = document.getElementById("start-modal");
     startModal.classList.remove("active");
+    let cardsCollected = document.getElementById("cardsCollected");
+    cardsCollected.innerHTML = "Cards collected: " + cardsCollected.getAttribute("count") + "/" + cardAmount;
     startGame();
 }
 
@@ -109,7 +111,7 @@ function userAttempt() {
             cardsCollected.innerHTML = "Cards collected: " + count + "/8";
             cardsCollected.setAttribute("count", count);
             currentAttemptCards = [];
-            if (collectedCards.length == 8) {
+            if (collectedCards.length == cardAmount) {
                 openCongratsModal();
             }
         }
@@ -189,9 +191,7 @@ function resetGame() {
     attempts.innerHTML = "Attempts: " + attempts.getAttribute("count");
     let cardsCollected = document.getElementById("cardsCollected");
     cardsCollected.setAttribute("count", 0);
-    cardsCollected.innerHTML = "Cards collected: " + cardsCollected.getAttribute("count") + "/8";
     let startModal = document.getElementById("start-modal");
     startModal.classList.add("active");
 }
 
-//window.onload = startGame();
