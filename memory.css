@@ -1,12 +1,35 @@
+body {
+    background-color: rgb(230,230,230);
+}
+
 .card {
-    width: 200px;
-    height: 250px;
+    
     border: 2px solid #222222;
     padding: 5px;
     margin: 20px;
     text-align: center;
     font-size: larger;
     float: left;
+}
+
+.card._8 {
+    width: 200px;
+    height: 250px;
+}
+
+.card._16 {
+    width: 150px;
+    height: 187.5px;
+}
+
+.card._24 {
+    width: 125px;
+    height: 156px;
+}
+
+.card._30 {
+    width: 100px;
+    height: 125px;
 }
 
 #rulesButton {
@@ -20,11 +43,12 @@
     color: #FFFFFF;
     background-color: red;
     text-align: center;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .teamLogo {
-    width: 150px;
-    height: 150px;
+    width: 80%;
+    height: 80%;
 }
 
 #start-modal {
@@ -52,10 +76,12 @@
     margin: 0px auto;
     margin-top: 5px;
     margin-bottom: 5px;
+    border-radius: 5px;
     width: 300px;
     max-width: 80%;
     background-color: #6a5acd; 
     color: white;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-size: 16px;
     font-weight: bold;
 }
@@ -85,6 +111,7 @@
     justify-content: center;
     align-items: center;
     border-bottom: 1px solid black;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .modal-header .title {

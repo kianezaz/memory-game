@@ -19,35 +19,29 @@ function numberOfCards(number) {
     cardAmount = number;
     let startModal = document.getElementById("start-modal");
     startModal.classList.remove("active");
+    let overlay = document.getElementById("overlay");
+    overlay.classList.remove("active");
     let cardsCollected = document.getElementById("cardsCollected");
     cardsCollected.innerHTML = "Cards collected: " + cardsCollected.getAttribute("count") + "/" + cardAmount;
     startGame();
 }
 
 function createCards() {
-    for (let i = 0; i < cardAmount/2; i++) {
-        let card1 = document.createElement("button");
-        let card2 = document.createElement("button");
-        card1.setAttribute("class", "card");
-        card1.addEventListener("click", flipCard);
-        card1.hasEvent = true;
-        //let label1 = document.createTextNode(`Card ${i + 1}`);
-        //card1.appendChild(label1);
-        card2.setAttribute("class", "card");
-        card2.addEventListener("click", flipCard);
-        card2.hasEvent = true;
-        //let label2 = document.createTextNode(`Card ${i + 2}`);
-        //card2.appendChild(label2);
-        /*
-        if (i < 2) {card.teamName = "Warriors";}
-        else if (i < 4) {card.teamName = "Lakers"}
-        else if (i < 6) {card.teamName = "Bucks";}
-        else if (i < 8) {card.teamName = "76ers";}
-        */
-        card1.teamName = teams[i];
-        card2.teamName = teams[i];
-        cards.push(card1);
-        cards.push(card2);
+    for (let i = 0; i < cardAmount; i++) {
+        let card = document.createElement("button");
+        card.classList.add("card", `_${cardAmount}`);
+        console.log(card.classList);
+       // card.setAttribute("class", "card");
+        //card.setAttribute("class", `_${cardAmount}`);
+        console.log(card.classList);
+        //card.set
+        card.addEventListener("click", flipCard);
+        card.hasEvent = true;
+        let j;
+        if (i % 2 == 0) {j = i}
+        else {j = i - 1}
+        card.teamName = teams[Math.floor(j)];
+        cards.push(card);
     }
     shuffleArray(cards);
 }
