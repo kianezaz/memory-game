@@ -32,6 +32,11 @@ body {
     height: 125px;
 }
 
+.card._60 {
+    width: 75px;
+    height: 94px;
+}
+
 .teamLogo {
     width: 80%;
     height: 80%;

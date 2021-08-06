@@ -25,7 +25,16 @@ function numberOfCards(number) {
 }
 
 function createCards() {
-    for (let i = 0; i < cardAmount; i++) {
+    for (let i = 0; i < cardAmount/2; i++) {
+        for (let j = 0; j < 2; j++) {
+            let card = document.createElement("button");
+            card.classList.add("card", `_${cardAmount}`);
+            card.addEventListener("click", flipCard);
+            card.hasEvent = true;
+            card.teamName = teams[i];
+            cards.push(card);
+        }
+        /*
         let card = document.createElement("button");
         card.classList.add("card", `_${cardAmount}`);
         card.addEventListener("click", flipCard);
@@ -35,6 +44,7 @@ function createCards() {
         else {j = i - 1}
         card.teamName = teams[Math.floor(j)];
         cards.push(card);
+        */
     }
     shuffleArray(cards);
 }
