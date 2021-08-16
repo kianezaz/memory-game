@@ -34,17 +34,6 @@ function createCards() {
             card.teamName = teams[i];
             cards.push(card);
         }
-        /*
-        let card = document.createElement("button");
-        card.classList.add("card", `_${cardAmount}`);
-        card.addEventListener("click", flipCard);
-        card.hasEvent = true;
-        let j;
-        if (i % 2 == 0) {j = i}
-        else {j = i - 1}
-        card.teamName = teams[Math.floor(j)];
-        cards.push(card);
-        */
     }
     shuffleArray(cards);
 }
@@ -59,37 +48,26 @@ function shuffleArray(array) {
 }
 
 function flipCard() {
-    if (this.flipped == false) {
-        this.flipped = true;
-        this.style.fontSize = "0px";
         let img = document.createElement("img");
         img.src = `${this.teamName}_Logo.png`;
         img.setAttribute("class", "teamLogo");
         this.img = img;
         this.appendChild(img);
         currentAttemptCards.push(this);
-        console.log(currentAttemptCards.length);
         this.removeEventListener("click", flipCard);
         this.hasEvent = false;
         if (currentAttemptCards.length == 2) {
             userAttempt();
         }
-    }
-    else {
-        this.flipped = false;
-        this.style.fontSize = "larger";
-        if (this.img != null) {
-            this.img.remove();
-        }
-    }
 }
 
 function userAttempt() {
     let card1 = currentAttemptCards[0];
     let card2 = currentAttemptCards[1];
     for (let card of cards) {
-        if (card.hasEvent = true) {
+        if (card.hasEvent == true) {
             card.removeEventListener("click", flipCard);
+            card.hasEvent = false;
         }
     }
     setTimeout(function() {
@@ -98,14 +76,14 @@ function userAttempt() {
             collectedCards.push(currentAttemptCards[1]);
             currentAttemptCards[0].style.visibility = "hidden";
             currentAttemptCards[1].style.visibility = "hidden";
-            console.log("Match!");
             for (let card of cards) {
                 card.addEventListener("click", flipCard);
+                card.hasEvent = true;
             }
             let cardsCollected = document.getElementById("cardsCollected");
             let count = parseInt(cardsCollected.getAttribute("count"));
             count += 2;
-            cardsCollected.innerHTML = "Cards collected: " + count + "/8";
+            cardsCollected.innerHTML = "Cards collected: " + count + "/" + cardAmount;
             cardsCollected.setAttribute("count", count);
             currentAttemptCards = [];
             if (collectedCards.length == cardAmount) {
@@ -113,21 +91,19 @@ function userAttempt() {
             }
         }
         else {
-            console.log("No match");
-            currentAttemptCards[0].style.fontSize = "larger";
             card1.img.remove();
-            currentAttemptCards[1].style.fontSize = "larger";
             card2.img.remove();
             currentAttemptCards = [];
             for (let card of cards) {
                 card.addEventListener("click", flipCard);
+                card.hasEvent = true;
             }
         }
-            let attempts = document.getElementById("attempts");
-            let attemptNumber = parseInt(attempts.getAttribute("count"));
-            attemptNumber++;
-            attempts.innerHTML = "Attempts: " + attemptNumber;
-            attempts.setAttribute("count", attemptNumber);
+        let attempts = document.getElementById("attempts");
+        let attemptNumber = parseInt(attempts.getAttribute("count"));
+        attemptNumber++;
+        attempts.innerHTML = "Attempts: " + attemptNumber;
+        attempts.setAttribute("count", attemptNumber);
     }, 1500)
 }
 
