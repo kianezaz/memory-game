@@ -30,7 +30,6 @@ function createCards() {
             let card = document.createElement("button");
             card.classList.add("card", `_${cardAmount}`);
             card.addEventListener("click", flipCard);
-            card.hasEvent = true;
             card.teamName = teams[i];
             cards.push(card);
         }
@@ -55,7 +54,6 @@ function flipCard() {
         this.appendChild(img);
         currentAttemptCards.push(this);
         this.removeEventListener("click", flipCard);
-        this.hasEvent = false;
         if (currentAttemptCards.length == 2) {
             userAttempt();
         }
@@ -65,10 +63,7 @@ function userAttempt() {
     let card1 = currentAttemptCards[0];
     let card2 = currentAttemptCards[1];
     for (let card of cards) {
-        if (card.hasEvent == true) {
-            card.removeEventListener("click", flipCard);
-            card.hasEvent = false;
-        }
+        card.removeEventListener("click", flipCard);
     }
     setTimeout(function() {
         if (card1.img.src === card2.img.src) {
@@ -78,7 +73,6 @@ function userAttempt() {
             currentAttemptCards[1].style.visibility = "hidden";
             for (let card of cards) {
                 card.addEventListener("click", flipCard);
-                card.hasEvent = true;
             }
             let cardsCollected = document.getElementById("cardsCollected");
             let count = parseInt(cardsCollected.getAttribute("count"));
@@ -96,7 +90,6 @@ function userAttempt() {
             currentAttemptCards = [];
             for (let card of cards) {
                 card.addEventListener("click", flipCard);
-                card.hasEvent = true;
             }
         }
         let attempts = document.getElementById("attempts");
