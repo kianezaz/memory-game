@@ -1,9 +1,3 @@
-/* 
- Instead of appending img to innerHTML for each distinct img, can make an array of team names
- and pull the names out of array when appending using `${teamName}_Logo.png`
-*/
-
-// Add images for each team
 let teams = ["Celtics", "Nets", "Knicks", "76ers", "Raptors", "Bulls", "Cavaliers", "Pistons", 
             "Pacers", "Bucks", "Hawks", "Hornets", "Heat", "Magic", "Wizards", "Nuggets", 
             "Timberwolves", "Thunder", "Blazers", "Jazz", "Warriors", "Clippers", "Lakers", 
@@ -48,7 +42,7 @@ function shuffleArray(array) {
 
 function flipCard() {
         let img = document.createElement("img");
-        img.src = `${this.teamName}_Logo.png`;
+        img.src = `images/${this.teamName}_Logo.png`;
         img.setAttribute("class", "teamLogo");
         this.img = img;
         this.appendChild(img);
